@@ -2,7 +2,9 @@
 
 A production-ready project management application built with React, Node.js, and PostgreSQL. Features JWT authentication, real-time task updates, drag-and-drop boards, and team collaboration.
 
-![TaskFlow Demo](https://via.placeholder.com/800x400/1a1a2e/61dafb?text=TaskFlow+App)
+## 🌐 Live Demo
+
+**[deploy-taskflow.vercel.app](https://deploy-taskflow.vercel.app)**
 
 ## ✨ Features
 
@@ -16,11 +18,11 @@ A production-ready project management application built with React, Node.js, and
 
 ## 🛠️ Tech Stack
 
-**Frontend:** React 18, Vite, Tailwind CSS, React Query, React Beautiful DnD  
-**Backend:** Node.js, Express.js, WebSocket (ws)  
-**Database:** PostgreSQL with Prisma ORM  
-**Auth:** JWT (access + refresh tokens), bcrypt  
-**Deployment:** Vercel (frontend) + Railway (backend + DB)
+**Frontend:** React 18, Vite, Tailwind CSS, React Query, React Beautiful DnD
+**Backend:** Node.js, Express.js, WebSocket (ws)
+**Database:** PostgreSQL with Prisma ORM
+**Auth:** JWT (access + refresh tokens), bcrypt
+**Deployment:** Vercel
 
 ## 🚀 Getting Started
 
@@ -45,7 +47,7 @@ cp .env.example .env
 # Run database migrations
 npx prisma migrate dev
 
-# Start development servers (frontend + backend)
+# Start development server
 npm run dev
 ```
 
@@ -70,7 +72,6 @@ taskflow-app/
 │   │   ├── hooks/          # Custom React hooks
 │   │   ├── context/        # Auth & Theme context
 │   │   └── api/            # API service functions
-│   └── vite.config.js
 │
 ├── server/                 # Express backend
 │   ├── src/
@@ -102,16 +103,6 @@ taskflow-app/
 ```bash
 npm test
 ```
-
-## 📸 Screenshots
-
-| Board View | Task Detail | Dashboard |
-|---|---|---|
-| Kanban board with drag-and-drop | Task details with comments | Project analytics |
-
-## 🌐 Live Demo
-
-[taskflow-demo.vercel.app](https://taskflow-demo.vercel.app) *(coming soon)*
 
 ## 📄 License
 
