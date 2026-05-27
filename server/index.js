@@ -1,52 +1,32 @@
 const express = require("express");
 const cors = require("cors");
-const { WebSocketServer } = require("ws");
-const http = require("http");
 
 const authRoutes = require("./src/routes/auth");
-const projectRoutes = require("./src/routes/projects");
 const taskRoutes = require("./src/routes/tasks");
+const projectRoutes = require("./src/routes/projects");
 const { authenticateToken } = require("./src/middleware/auth");
 const { errorHandler } = require("./src/middleware/errorHandler");
 
 const app = express();
-const server = http.createServer(app);
-const wss = new WebSocketServer({ server });
 
-app.use(cors({ origin: process.env.CLIENT_URL, credentials: true }));
+app.use(cors());
 app.use(express.json());
+
+// no-op broadcast since WebSockets aren't supported on Vercel serverless
+app.locals.broadcast = () => {};
+
+app.get("/", (_, res) => res.json({ name: "TaskFlow API", version: "1.0.0", status: "running" }));
+app.get("/health", (_, res) => res.json({ status: "ok", timestamp: new Date().toISOString() }));
 
 app.use("/api/auth", authRoutes);
 app.use("/api/projects", authenticateToken, projectRoutes);
 app.use("/api/tasks", authenticateToken, taskRoutes);
 
-// WebSocket: broadcast task updates to project members
-const clients = new Map(); // userId -> ws
-
-wss.on("connection", (ws, req) => {
-  ws.on("message", (data) => {
-    const msg = JSON.parse(data);
-    if (msg.type === "auth") {
-      clients.set(msg.userId, ws);
-    }
-  });
-  ws.on("close", () => {
-    for (const [uid, client] of clients) {
-      if (client === ws) clients.delete(uid);
-    }
-  });
-});
-
-app.locals.broadcast = (userIds, payload) => {
-  userIds.forEach((uid) => {
-    const client = clients.get(uid);
-    if (client && client.readyState === 1) {
-      client.send(JSON.stringify(payload));
-    }
-  });
-};
-
 app.use(errorHandler);
 
-const PORT = process.env.PORT || 5000;
-server.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+if (process.env.NODE_ENV !== "production") {
+  const PORT = process.env.PORT || 5000;
+  app.listen(PORT, () => console.log(`TaskFlow API running on port ${PORT}`));
+}
+
+module.exports = app;
