@@ -1,109 +1,76 @@
-# 🗂️ TaskFlow — Full Stack Project Management App
+# 🗂️ TaskFlow — Project Management App
 
-A production-ready project management application built with React, Node.js, and PostgreSQL. Features JWT authentication, real-time task updates, drag-and-drop boards, and team collaboration.
+A full-stack **Kanban project management app** with drag-and-drop task boards, JWT authentication, and real-time-ready architecture. Built with React, Node.js, Prisma, and PostgreSQL.
 
 ## 🌐 Live Demo
 
-**[deploy-taskflow.vercel.app](https://taskflow-app-phi-seven.vercel.app)**
+**App:** [https://taskflow-app-phi-seven.vercel.app](https://taskflow-app-phi-seven.vercel.app)
+
+> Demo credentials: `demo@taskflow.app` / `Demo1234!`
 
 ## ✨ Features
 
-- **Authentication** — JWT-based login/signup with refresh tokens
-- **Kanban Board** — Drag-and-drop task management (Todo → In Progress → Done)
-- **Projects & Teams** — Create projects, invite team members, assign tasks
-- **Real-time Updates** — WebSocket integration for live board changes
-- **Priority & Due Dates** — Set task priority, labels, and deadlines
-- **Dark/Light Mode** — Full theme support
-- **Responsive UI** — Works on mobile, tablet, and desktop
+- **Kanban Board** — Drag-and-drop tasks across To Do → In Progress → In Review → Done
+- **Project Management** — Create and organize multiple projects
+- **Task Priority** — Low / Medium / High / Urgent priority levels
+- **JWT Auth** — Secure login with access + refresh token rotation
+- **Responsive Design** — Works on desktop and mobile
 
-## 🛠️ Tech Stack
+## 🛠 Tech Stack
 
-**Frontend:** React 18, Vite, Tailwind CSS, React Query, React Beautiful DnD
-**Backend:** Node.js, Express.js, WebSocket (ws)
-**Database:** PostgreSQL with Prisma ORM
-**Auth:** JWT (access + refresh tokens), bcrypt
-**Deployment:** Vercel
-
-## 🚀 Getting Started
-
-### Prerequisites
-- Node.js 18+
-- PostgreSQL 14+
-
-### Installation
-
-```bash
-# Clone the repo
-git clone https://github.com/astha9900/taskflow-app.git
-cd taskflow-app
-
-# Install dependencies
-npm install
-
-# Set up environment variables
-cp .env.example .env
-# Fill in your DATABASE_URL, JWT_SECRET, etc.
-
-# Run database migrations
-npx prisma migrate dev
-
-# Start development server
-npm run dev
-```
-
-### Environment Variables
-
-```env
-DATABASE_URL=postgresql://user:password@localhost:5432/taskflow
-JWT_SECRET=your-super-secret-jwt-key
-JWT_REFRESH_SECRET=your-refresh-secret
-PORT=5000
-CLIENT_URL=http://localhost:5173
-```
-
-## 📁 Project Structure
-
-```
-taskflow-app/
-├── client/                 # React frontend
-│   ├── src/
-│   │   ├── components/     # Reusable UI components
-│   │   ├── pages/          # Page components
-│   │   ├── hooks/          # Custom React hooks
-│   │   ├── context/        # Auth & Theme context
-│   │   └── api/            # API service functions
-│
-├── server/                 # Express backend
-│   ├── src/
-│   │   ├── routes/         # API route handlers
-│   │   ├── middleware/      # Auth, error handling
-│   │   ├── controllers/    # Business logic
-│   │   └── prisma/         # DB schema & migrations
-│   └── index.js
-│
-└── package.json
-```
+| Layer | Technology |
+|-------|-----------|
+| Frontend | React 18, Vite, Tailwind CSS |
+| Drag & Drop | @hello-pangea/dnd |
+| Backend | Node.js, Express.js |
+| ORM | Prisma |
+| Database | PostgreSQL (Neon serverless) |
+| Auth | JWT (access + refresh tokens) |
+| Deployment | Vercel |
 
 ## 📡 API Endpoints
 
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| POST | `/api/auth/register` | Register new user |
-| POST | `/api/auth/login` | Login, get tokens |
-| POST | `/api/auth/refresh` | Refresh access token |
-| GET | `/api/projects` | Get user's projects |
-| POST | `/api/projects` | Create project |
-| GET | `/api/projects/:id/tasks` | Get project tasks |
-| POST | `/api/tasks` | Create task |
-| PATCH | `/api/tasks/:id` | Update task (status, assignee) |
-| DELETE | `/api/tasks/:id` | Delete task |
+```
+POST   /api/auth/register        Register
+POST   /api/auth/login           Login
+POST   /api/auth/refresh         Refresh token
 
-## 🧪 Running Tests
+GET    /api/projects             List projects
+POST   /api/projects             Create project
+GET    /api/projects/:id/tasks   Get tasks for project
 
-```bash
-npm test
+GET    /api/tasks                List tasks
+POST   /api/tasks                Create task
+PATCH  /api/tasks/:id            Update task (status, priority)
+DELETE /api/tasks/:id            Delete task
 ```
 
-## 📄 License
+## 🚀 Quick Start
 
-MIT © [Astha Bharti](https://github.com/astha9900)
+```bash
+git clone https://github.com/astha9900/taskflow-app.git
+cd taskflow-app
+
+# Backend
+npm install
+cp .env.example .env    # Add DATABASE_URL and JWT secrets
+npx prisma db push
+npm run dev
+
+# Frontend (in client/)
+cd client && npm install && npm run dev
+```
+
+## 📦 Environment Variables
+
+```env
+DATABASE_URL=postgresql://...
+JWT_SECRET=your-secret-key
+JWT_REFRESH_SECRET=your-refresh-secret
+PORT=5000
+NODE_ENV=development
+```
+
+---
+
+Made with ❤️ by **Astha Bharti**
