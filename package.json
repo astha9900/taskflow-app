@@ -1,0 +1,15 @@
+{
+  "name": "taskflow-app",
+  "version": "1.0.0",
+  "description": "Full-stack project management app with real-time updates",
+  "scripts": {
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "server": "nodemon server/index.js",
+    "client": "vite client",
+    "build": "vite build client",
+    "test": "vitest"
+  },
+  "keywords": ["react", "nodejs", "postgresql", "prisma", "websocket", "jwt", "kanban"],
+  "author": "Astha Bharti",
+  "license": "MIT"
+}
