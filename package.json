@@ -3,9 +3,10 @@
   "version": "1.0.0",
   "description": "Full-stack project management app with real-time updates",
   "scripts": {
+    "postinstall": "prisma generate",
+    "build": "prisma generate",
     "dev": "nodemon server/index.js",
     "start": "node server/index.js",
-    "build": "npx prisma generate",
     "test": "vitest"
   },
   "keywords": ["react", "nodejs", "postgresql", "prisma", "websocket", "jwt", "kanban"],
